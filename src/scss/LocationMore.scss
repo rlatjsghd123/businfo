@@ -1,0 +1,70 @@
+.station_location {
+  position: absolute;
+  top: 70%;
+  right: 10%;
+  z-index: 9999;
+  width: 450px;
+  background-color: #fff;
+  border: 1px solid #d2d2d2;
+  .inner_station_location {
+    border-top: 3px solid #ffad62;
+    .station_title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px;
+      background-color: #f3f3f3;
+
+      h1 {
+        font-size: 12px;
+        font-weight: normal;
+      }
+      span {
+        padding-right: 10px;
+        cursor: pointer;
+      }
+    }
+    .station_location_info {
+      width: 100%;
+      padding: 10px;
+      height: 120px;
+      overflow-y: scroll;
+      table,
+      td,
+      th {
+        border: 1px solid #d2d2d2;
+        border-collapse: collapse;
+      }
+
+      .arrive_info {
+        width: 100%;
+        thead {
+          tr {
+            th {
+              color: #333;
+              padding: 7px 0;
+              border-bottom: none;
+              font-size: 12px;
+              &:first-child {
+                width: 30%;
+              }
+            }
+          }
+        }
+        tbody {
+          tr {
+            td {
+              font-size: 12px;
+              padding: 10px;
+              text-align: center;
+              &:nth-child(2),
+              &:nth-child(4) {
+                width: 52px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
