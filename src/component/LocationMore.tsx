@@ -1,18 +1,17 @@
 import React from 'react';
 import '../scss/LocationMore.scss';
 import { useDispatch, useSelector } from 'react-redux';
+import type { RootState, AppDispatch } from '../store/store';
 function LocationMore() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   // 현재정류장에 오는 버스,도착정보
   const arriveSelector = useSelector(
-    (state: any) => state.busInfo.stationArrive
+    (state: RootState) => state.busInfo.stationArrive
   );
   console.log(arriveSelector);
   const UserClickedStationSelector = useSelector(
-    (state: any) => state.busInfo.userClick
+    (state: RootState) => state.busInfo.userClick
   );
-  console.log(UserClickedStationSelector.stNm && 'dd');
-
   return (
     <div className='station_location'>
       <div className='inner_station_location'>
@@ -20,9 +19,11 @@ function LocationMore() {
           <>
             <div className='station_title'>
               <h1>
-                {UserClickedStationSelector.stationNm
+                {UserClickedStationSelector !== null &&
+                UserClickedStationSelector.stationNm
                   ? UserClickedStationSelector.stationNm._text
-                  : UserClickedStationSelector.stNm._text}
+                  : UserClickedStationSelector !== null &&
+                    UserClickedStationSelector.stNm._text}
               </h1>
               <span
                 onClick={() =>
@@ -46,12 +47,13 @@ function LocationMore() {
                   </tr>
                 </thead>
                 <tbody>
-                  {Array.isArray(
+                  {arriveSelector !== null &&
+                  Array.isArray(
                     arriveSelector.ServiceResult.msgBody.itemList
                   ) ? (
                     arriveSelector.ServiceResult.msgBody.itemList.map(
-                      (list: any, index: number) => (
-                        <tr key={index}>
+                      (list) => (
+                        <tr key={list.staOrd._text}>
                           <td>
                             <strong>{list.busRouteAbrv._text}</strong>
                           </td>

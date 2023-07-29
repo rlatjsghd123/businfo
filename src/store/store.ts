@@ -1,76 +1,108 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import {
+  TypeUserClick,
+  TypeBusNum,
+  TypeStation,
+  TypebusStation,
+  TypeClickValue,
+  TpyestationArrive,
+} from '../type/type';
+
+interface defaultType {
+  station: TypeStation | null;
+  busNum: TypeBusNum | null;
+  userClick: TypeUserClick | null;
+  busStation: TypebusStation | null;
+  StationLocation: null;
+  ClickValue: TypeClickValue | null;
+  more: boolean;
+  Marker: boolean;
+  location: { lat: number; lng: number };
+  level: number;
+  stationMore: boolean;
+  stationArrive: TpyestationArrive | null;
+  loading: boolean;
+}
+const initialState: defaultType = {
+  station: null,
+  busNum: null,
+  busStation: null,
+  StationLocation: null,
+  ClickValue: null,
+  more: true,
+  Marker: true,
+  location: { lat: 37.566535, lng: 126.9779692 },
+  level: 7,
+  stationMore: true,
+  stationArrive: null,
+  userClick: null,
+  loading: false,
+};
 
 const busInfo = createSlice({
   name: 'busInfoReducer',
-  initialState: {
-    station: null,
-    busNum: null,
-    busStation: null,
-    StationLocation: {},
-    ClickValue: null,
-    more: true,
-    Marker: true,
-    location: { lat: 37.566535, lng: 126.9779692 },
-    level: 7,
-    stationMore: true,
-    stationArrive: null,
-    userClick: null,
-    loading: false,
-  },
+  initialState,
   reducers: {
-    IsLoading: (state: any) => {
+    IsLoading: (state) => {
       state.loading = false;
     },
-    UnIsLoading: (state: any) => {
+    UnIsLoading: (state) => {
       state.loading = true;
     },
-    UserClickedStation: (state: any, action) => {
+    UserClickedStation: (state, action: PayloadAction<TypeUserClick>) => {
       state.userClick = action.payload;
     },
-    StationArriveInfo: (state: any, action) => {
+    StationArriveInfo: (state, action: PayloadAction<TpyestationArrive>) => {
       state.stationArrive = action.payload;
     },
-    StationMoreOpen: (state: any) => {
+    StationMoreOpen: (state) => {
       state.stationMore = false;
     },
-    StationMoreClose: (state: any) => {
+    StationMoreClose: (state) => {
       state.stationMore = true;
     },
-    MapLevel: (state: any, action) => {
+    MapLevel: (state, action: PayloadAction<number>) => {
       state.level = action.payload;
     },
-    BusLocation: (state: any, action) => {
+    BusLocation: (
+      state,
+      action: PayloadAction<{ lat: number; lng: number }>
+    ) => {
       state.location = action.payload;
     },
-    OnMarKer: (state: any) => {
+    OnMarKer: (state) => {
       state.Marker = false;
     },
-    OffMarKer: (state: any) => {
+    OffMarKer: (state) => {
       state.Marker = true;
     },
-    MoreClose: (state: any) => {
+    MoreClose: (state) => {
       state.more = true;
     },
-    MoreOpen: (state: any) => {
+    MoreOpen: (state) => {
       state.more = false;
     },
-    StationSearched: (state: any, action) => {
+    StationSearched: (state, action: PayloadAction<TypeStation>) => {
       state.station = action.payload;
     },
-    BusNumSearched: (state: any, action) => {
+    BusNumSearched: (state, action: PayloadAction<TypeBusNum>) => {
       state.busNum = action.payload;
     },
-    BusStationInfo: (state: any, action) => {
+    BusStationInfo: (state, action: PayloadAction<TypebusStation>) => {
       state.busStation = action.payload;
     },
-    BusStationLocation: (state: any, action) => {
+    BusStationLocation: (state, action: PayloadAction<null>) => {
       state.StationLocation = action.payload;
     },
-    MoreLocation: (state: any, action) => {
+    MoreLocation: (state, action: PayloadAction<TypeClickValue>) => {
       state.ClickValue = action.payload;
     },
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 const store = configureStore({
   reducer: {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import {
   CustomOverlayMap,
   Map,
@@ -9,30 +9,33 @@ import {
 import '../scss/BusLocationInfo.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import LocationMore from './LocationMore';
+import type { RootState, AppDispatch } from '../store/store';
 
 function BusLocationInfo() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   // 버스의 모든 정류장
   const busStationSelector = useSelector(
-    (state: any) => state.busInfo.busStation
+    (state: RootState) => state.busInfo.busStation
   );
-  console.log(busStationSelector);
   // 버스정류장 클릭시 LocationMore 컴포넌트 보이기
   const StationMoreSelector = useSelector(
-    (state: any) => state.busInfo.stationMore
+    (state: RootState) => state.busInfo.stationMore
   );
+
   // 내가 클릭한 버스의 정류장의 가운데 위치
   const busLocationSelector = useSelector(
-    (state: any) => state.busInfo.location
+    (state: RootState) => state.busInfo.location
   );
   // 지도의 크기설정
-  const MapLevelSelector = useSelector((state: any) => state.busInfo.level);
+  const MapLevelSelector = useSelector(
+    (state: RootState) => state.busInfo.level
+  );
 
   useEffect(() => {
     if (busStationSelector != null) {
       const mapLocation = busStationSelector.ServiceResult.msgBody.itemList
         .slice()
-        .sort((a: any, b: any) => a - b);
+        .sort((a, b) => Number(a) - Number(b));
 
       dispatch({
         type: 'busInfoReducer/BusLocation',
@@ -60,37 +63,40 @@ function BusLocationInfo() {
             }}
           >
             {busStationSelector != null &&
-              busStationSelector.ServiceResult.msgBody.itemList.map(
-                (list: any, index: number) => (
-                  <>
-                    <MapMarker
-                      key={index}
-                      image={{
-                        src: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
-                        size: {
-                          width: 24,
-                          height: 35,
+              busStationSelector.ServiceResult.msgBody.itemList.map((list) => (
+                <div key={list.station._text}>
+                  <MapMarker
+                    image={{
+                      src: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',
+                      size: {
+                        width: 24,
+                        height: 35,
+                      },
+                      options: {
+                        offset: {
+                          x: 5,
+                          y: 36,
                         },
-                        options: {
-                          offset: {
-                            x: 5,
-                            y: 36,
-                          },
-                        },
-                      }}
-                      position={{ lat: list.gpsY._text, lng: list.gpsX._text }}
-                    ></MapMarker>
-                    <CustomOverlayMap
-                      position={{ lat: list.gpsY._text, lng: list.gpsX._text }}
-                      yAnchor={1}
-                    >
-                      <div className='station_location_title'>
-                        {list.stationNm._text}
-                      </div>
-                    </CustomOverlayMap>
-                  </>
-                )
-              )}
+                      },
+                    }}
+                    position={{
+                      lat: Number(list.gpsY._text),
+                      lng: Number(list.gpsX._text),
+                    }}
+                  ></MapMarker>
+                  <CustomOverlayMap
+                    position={{
+                      lat: Number(list.gpsY._text),
+                      lng: Number(list.gpsX._text),
+                    }}
+                    yAnchor={1}
+                  >
+                    <div className='station_location_title'>
+                      {list.stationNm._text}
+                    </div>
+                  </CustomOverlayMap>
+                </div>
+              ))}
 
             {StationMoreSelector === false && <LocationMore />}
             <ZoomControl position={kakao.maps.ControlPosition.TOPRIGHT} />

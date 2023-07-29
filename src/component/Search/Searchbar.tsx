@@ -4,15 +4,20 @@ import { FaSearch } from 'react-icons/fa';
 import axios from 'axios';
 import { xml2json } from 'xml-js';
 import { useDispatch, useSelector } from 'react-redux';
+import type { RootState, AppDispatch } from '../../store/store';
 
 function Searchbar() {
   const [loading, setLoding] = useState(false);
   const [search, setSearch] = useState('');
-  const dispatch = useDispatch();
-  const stationSelector = useSelector((state: any) => state.busInfo.station);
-  const busNumSelector = useSelector((state: any) => state.busInfo.busNum);
+  const dispatch = useDispatch<AppDispatch>();
+  const stationSelector = useSelector(
+    (state: RootState) => state.busInfo.station
+  );
+  const busNumSelector = useSelector(
+    (state: RootState) => state.busInfo.busNum
+  );
 
-  const getStationByName = async (e: any) => {
+  const getStationByName = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoding(true);
     if (search === '') {
@@ -47,6 +52,7 @@ function Searchbar() {
       // 버스번호 초기화
       dispatch({
         type: 'busInfoReducer/BusNumSearched',
+        payload: null,
       });
       // 버스번호 클릭시 더보기 끄기
       dispatch({
@@ -82,7 +88,6 @@ function Searchbar() {
       console.log(error);
     }
     setSearch('');
-
     setLoding(false);
   };
 

@@ -4,18 +4,22 @@ import '../../scss/SearchResult.scss';
 import { GoArrowBoth } from 'react-icons/go';
 import ReactPaginate from 'react-paginate';
 import SearchedMore from './SearchedMore';
+import type { RootState, AppDispatch } from '../../store/store';
+import { TypeCurrentItem } from '../../type/type';
 
 function BusSearchResult() {
-  const [currentItems, setCurrentItems] = useState([]);
+  const [currentItems, setCurrentItems] = useState<TypeCurrentItem[]>([]);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
-  const dispatch = useDispatch();
-  const busNumSelector = useSelector((state: any) => state.busInfo.busNum);
-  const moreSelector = useSelector((state: any) => state.busInfo.more);
+  const dispatch = useDispatch<AppDispatch>();
+  const busNumSelector = useSelector(
+    (state: RootState) => state.busInfo.busNum
+  );
+  const moreSelector = useSelector((state: RootState) => state.busInfo.more);
 
   useEffect(() => {
     // 페이지네이션
-    if (busNumSelector != null) {
+    if (busNumSelector !== null) {
       const endOffset = itemOffset + itemsPerPage;
       if (Array.isArray(busNumSelector.ServiceResult.msgBody.itemList)) {
         setCurrentItems(
@@ -29,14 +33,16 @@ function BusSearchResult() {
   }, [busNumSelector, itemOffset, itemsPerPage]);
 
   const handlePageChange = (e: any) => {
-    const newOffset =
-      (e.selected * itemsPerPage) %
-      busNumSelector.ServiceResult.msgBody.itemList.length;
+    if (busNumSelector !== null) {
+      const newOffset =
+        (e.selected * itemsPerPage) %
+        busNumSelector.ServiceResult.msgBody.itemList.length;
 
-    setItemOffset(newOffset);
+      setItemOffset(newOffset);
+    }
   };
 
-  const busStationLocation = (list: any) => {
+  const busStationLocation = (list: TypeCurrentItem) => {
     dispatch({
       type: 'busInfoReducer/MoreOpen',
     });
@@ -51,7 +57,7 @@ function BusSearchResult() {
   };
   return (
     <>
-      {busNumSelector != null ? (
+      {busNumSelector !== null ? (
         <>
           <h3>
             버스
@@ -72,8 +78,8 @@ function BusSearchResult() {
                 {Array.isArray(
                   busNumSelector.ServiceResult.msgBody.itemList
                 ) ? (
-                  currentItems.map((list: any, index: number) => (
-                    <li key={index}>
+                  currentItems.map((list) => (
+                    <li key={list.busRouteId._text}>
                       <div className='bus_info_box'>
                         <h4>
                           {list.routeType._text === '1' && (
@@ -191,12 +197,12 @@ function BusSearchResult() {
                         </li>
                         <li>
                           첫차 :
-                          {busNumSelector.ServiceResult.msgBody.itemList.firstBusTm._text.substr(
+                          {busNumSelector.ServiceResult.msgBody.itemList.firstBusTm._text?.substring(
                             8,
                             2
                           )}
                           :
-                          {busNumSelector.ServiceResult.msgBody.itemList.firstBusTm._text.substr(
+                          {busNumSelector.ServiceResult.msgBody.itemList.firstBusTm._text.substring(
                             10,
                             2
                           )}
@@ -204,12 +210,12 @@ function BusSearchResult() {
                         </li>
                         <li>
                           막차 :
-                          {busNumSelector.ServiceResult.msgBody.itemList.lastBusTm._text.substr(
+                          {busNumSelector.ServiceResult.msgBody.itemList.lastBusTm._text.substring(
                             8,
                             2
                           )}
                           :
-                          {busNumSelector.ServiceResult.msgBody.itemList.lastBusTm._text.substr(
+                          {busNumSelector.ServiceResult.msgBody.itemList.lastBusTm._text.substring(
                             10,
                             2
                           )}

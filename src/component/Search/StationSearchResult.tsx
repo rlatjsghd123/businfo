@@ -3,15 +3,18 @@ import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
 import { xml2json } from 'xml-js';
+import type { RootState, AppDispatch } from '../../store/store';
+import { TypeStaitionList } from '../../type/type';
 
 function StationSearchResult() {
-  const [currentItems, setCurrentItems] = useState([]);
+  const [currentItems, setCurrentItems] = useState<TypeStaitionList[]>([]);
   const [itemOffset, setItemOffset] = useState(0);
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const itemsPerPage = 12;
-  const stationSelector = useSelector((state: any) => state.busInfo.station);
-
+  const stationSelector = useSelector(
+    (state: RootState) => state.busInfo.station
+  );
   useEffect(() => {
     if (stationSelector != null) {
       const endOffset = itemOffset + itemsPerPage;
@@ -26,16 +29,16 @@ function StationSearchResult() {
     }
   }, [stationSelector, itemOffset, itemsPerPage]);
 
-  const handlePageChange = (e: any) => {
-    const newOffset =
-      (e.selected * itemsPerPage) %
-      stationSelector.ServiceResult.msgBody.itemList.length;
-
-    setItemOffset(newOffset);
+  const handlePageChange = (e: { selected: number }) => {
+    if (stationSelector !== null) {
+      const newOffset =
+        (e.selected * itemsPerPage) %
+        stationSelector.ServiceResult.msgBody.itemList.length;
+      setItemOffset(newOffset);
+    }
   };
   // 정류장 클릭 시 해당 정류장으로 이동 및 버스도착정보
-  const stationInfo = (list: any) => {
-    console.log(list);
+  const stationInfo = (list: TypeStaitionList) => {
     // 버스정류장위치
     dispatch({
       type: 'busInfoReducer/BusLocation',
@@ -60,7 +63,7 @@ function StationSearchResult() {
     });
     busStationArriveInfo(list);
   };
-  const busStationArriveInfo = async (list: any) => {
+  const busStationArriveInfo = async (list: TypeStaitionList) => {
     setLoading(true);
 
     const stationArriveRes = await axios.get(
@@ -106,17 +109,21 @@ function StationSearchResult() {
             ) : Array.isArray(
                 stationSelector.ServiceResult.msgBody.itemList
               ) ? (
-              currentItems.map((list: any, index: number) => (
+              currentItems.map((list) => (
                 <li
                   onClick={() => stationInfo(list)}
-                  key={index}
+                  key={list.stId._text}
                   className='station_list'
                 >
                   {list.stNm._text}({list.arsId._text})
                 </li>
               ))
             ) : (
-              <li onClick={stationInfo}>
+              <li
+                onClick={() =>
+                  stationInfo(stationSelector.ServiceResult.msgBody.itemList)
+                }
+              >
                 {stationSelector.ServiceResult.msgBody.itemList.stNm._text}(
                 {stationSelector.ServiceResult.msgBody.itemList.arsId._text})
               </li>
