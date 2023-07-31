@@ -4,6 +4,7 @@ import BusSearchResult from './BusSearchResult';
 import StationSearchResult from './StationSearchResult';
 
 function SearchResult() {
+  console.log('버스검색결과 컴포넌트');
   return (
     <div className='search_result'>
       <div className='inner_search_result'>

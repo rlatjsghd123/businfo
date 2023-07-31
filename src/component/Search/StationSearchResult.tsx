@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { xml2json } from 'xml-js';
 import type { RootState, AppDispatch } from '../../store/store';
 import { TypeStaitionList } from '../../type/type';
+import Loding from '../Loding';
+import { v4 as uuidv4 } from 'uuid';
 
 function StationSearchResult() {
   const [currentItems, setCurrentItems] = useState<TypeStaitionList[]>([]);
@@ -12,6 +14,8 @@ function StationSearchResult() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const itemsPerPage = 12;
+
+  console.log('정류장검색결과 컴포넌트');
   const stationSelector = useSelector(
     (state: RootState) => state.busInfo.station
   );
@@ -112,7 +116,7 @@ function StationSearchResult() {
               currentItems.map((list) => (
                 <li
                   onClick={() => stationInfo(list)}
-                  key={list.stId._text}
+                  key={uuidv4()}
                   className='station_list'
                 >
                   {list.stNm._text}({list.arsId._text})
@@ -130,16 +134,14 @@ function StationSearchResult() {
             )}
           </ul>
           <ReactPaginate
-            pageCount={
-              Math.ceil(
-                Array.isArray(stationSelector.ServiceResult.msgBody.itemList)
-                  ? stationSelector.ServiceResult.msgBody.itemList.length
-                  : stationSelector.ServiceResult.msgHeader.headerMsg._text ===
-                    '결과가 없습니다.'
-                  ? 0
-                  : 1
-              ) / 10
-            }
+            pageCount={Math.ceil(
+              Array.isArray(stationSelector.ServiceResult.msgBody.itemList)
+                ? stationSelector.ServiceResult.msgBody.itemList.length
+                : stationSelector.ServiceResult.msgHeader.headerMsg._text ===
+                  '결과가 없습니다.'
+                ? 0
+                : 1 / 10
+            )}
             pageRangeDisplayed={5}
             marginPagesDisplayed={-1}
             breakLabel={''}
@@ -159,12 +161,7 @@ function StationSearchResult() {
           </ul>
         </>
       )}
-      {loading && (
-        <div className='loading'>
-          <img src={process.env.PUBLIC_URL + 'img/1488.gif'} alt='loading' />
-          <span>Loading</span>
-        </div>
-      )}
+      {loading && <Loding />}
     </>
   );
 }

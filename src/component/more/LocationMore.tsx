@@ -1,17 +1,20 @@
 import React from 'react';
-import '../scss/LocationMore.scss';
+import '../../scss/LocationMore.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState, AppDispatch } from '../store/store';
+import type { RootState, AppDispatch } from '../../store/store';
+import { v4 as uuidv4 } from 'uuid';
 function LocationMore() {
   const dispatch = useDispatch<AppDispatch>();
   // 현재정류장에 오는 버스,도착정보
   const arriveSelector = useSelector(
     (state: RootState) => state.busInfo.stationArrive
   );
-  console.log(arriveSelector);
+
   const UserClickedStationSelector = useSelector(
     (state: RootState) => state.busInfo.userClick
   );
+
+  console.log('지도위치더보기 컴포넌트');
   return (
     <div className='station_location'>
       <div className='inner_station_location'>
@@ -36,7 +39,6 @@ function LocationMore() {
                 x
               </span>
             </div>
-
             <div className='station_location_info'>
               <table className='arrive_info'>
                 <caption className='blind'>버스위치정보</caption>
@@ -53,7 +55,7 @@ function LocationMore() {
                   ) ? (
                     arriveSelector.ServiceResult.msgBody.itemList.map(
                       (list) => (
-                        <tr key={list.staOrd._text}>
+                        <tr key={uuidv4()}>
                           <td>
                             <strong>{list.busRouteAbrv._text}</strong>
                           </td>

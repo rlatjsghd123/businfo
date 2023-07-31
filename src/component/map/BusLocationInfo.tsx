@@ -6,14 +6,17 @@ import {
   MapTypeControl,
   ZoomControl,
 } from 'react-kakao-maps-sdk';
-import '../scss/BusLocationInfo.scss';
+import '../../scss/BusLocationInfo.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import LocationMore from './LocationMore';
-import type { RootState, AppDispatch } from '../store/store';
+import LocationMore from '../more/LocationMore';
+import type { RootState, AppDispatch } from '../../store/store';
+import { v4 as uuidv4 } from 'uuid';
 
 function BusLocationInfo() {
   const dispatch = useDispatch<AppDispatch>();
   // 버스의 모든 정류장
+
+  console.log('지도 컴포넌트');
   const busStationSelector = useSelector(
     (state: RootState) => state.busInfo.busStation
   );
@@ -64,7 +67,7 @@ function BusLocationInfo() {
           >
             {busStationSelector != null &&
               busStationSelector.ServiceResult.msgBody.itemList.map((list) => (
-                <div key={list.station._text}>
+                <div key={uuidv4()}>
                   <MapMarker
                     image={{
                       src: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',

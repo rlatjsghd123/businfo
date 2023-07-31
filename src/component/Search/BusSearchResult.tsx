@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import '../../scss/SearchResult.scss';
 import { GoArrowBoth } from 'react-icons/go';
 import ReactPaginate from 'react-paginate';
-import SearchedMore from './SearchedMore';
+import SearchedMore from '../more/SearchedMore';
 import type { RootState, AppDispatch } from '../../store/store';
 import { TypeCurrentItem } from '../../type/type';
+import { v4 as uuidv4 } from 'uuid';
 
 function BusSearchResult() {
   const [currentItems, setCurrentItems] = useState<TypeCurrentItem[]>([]);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
+  console.log('버스번호검색결과 컴포넌트');
   const dispatch = useDispatch<AppDispatch>();
   const busNumSelector = useSelector(
     (state: RootState) => state.busInfo.busNum
@@ -30,9 +32,9 @@ function BusSearchResult() {
         );
       }
     }
-  }, [busNumSelector, itemOffset, itemsPerPage]);
+  }, [busNumSelector, itemOffset]);
 
-  const handlePageChange = (e: any) => {
+  const handlePageChange = (e: { selected: number }) => {
     if (busNumSelector !== null) {
       const newOffset =
         (e.selected * itemsPerPage) %
@@ -42,19 +44,23 @@ function BusSearchResult() {
     }
   };
 
-  const busStationLocation = (list: TypeCurrentItem) => {
-    dispatch({
-      type: 'busInfoReducer/MoreOpen',
-    });
-    dispatch({
-      type: 'busInfoReducer/MoreLocation',
-      payload: list,
-    });
-    // 정류장클릭시 정보element 끄기
-    dispatch({
-      type: 'busInfoReducer/StationMoreClose',
-    });
-  };
+  const busStationLocation = useCallback(
+    (list: TypeCurrentItem) => {
+      dispatch({
+        type: 'busInfoReducer/MoreOpen',
+      });
+      dispatch({
+        type: 'busInfoReducer/MoreLocation',
+        payload: list,
+      });
+      // 정류장클릭시 정보element 끄기
+      dispatch({
+        type: 'busInfoReducer/StationMoreClose',
+      });
+    },
+    [dispatch]
+  );
+
   return (
     <>
       {busNumSelector !== null ? (
@@ -78,8 +84,8 @@ function BusSearchResult() {
                 {Array.isArray(
                   busNumSelector.ServiceResult.msgBody.itemList
                 ) ? (
-                  currentItems.map((list) => (
-                    <li key={list.busRouteId._text}>
+                  currentItems.map((list: TypeCurrentItem) => (
+                    <li key={uuidv4()}>
                       <div className='bus_info_box'>
                         <h4>
                           {list.routeType._text === '1' && (
@@ -229,16 +235,14 @@ function BusSearchResult() {
             )}
           </ul>
           <ReactPaginate
-            pageCount={
-              Math.ceil(
-                Array.isArray(busNumSelector.ServiceResult.msgBody.itemList)
-                  ? busNumSelector.ServiceResult.msgBody.itemList.length
-                  : busNumSelector.ServiceResult.msgHeader.headerMsg._text ===
-                    '결과가 없습니다.'
-                  ? 0
-                  : 1
-              ) / 10
-            }
+            pageCount={Math.ceil(
+              Array.isArray(busNumSelector.ServiceResult.msgBody.itemList)
+                ? busNumSelector.ServiceResult.msgBody.itemList.length
+                : busNumSelector.ServiceResult.msgHeader.headerMsg._text ===
+                  '결과가 없습니다.'
+                ? 0
+                : 1 / 10
+            )}
             pageRangeDisplayed={5}
             marginPagesDisplayed={-1}
             breakLabel={''}

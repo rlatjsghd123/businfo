@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import '../../scss/Searchbar.scss';
 import { FaSearch } from 'react-icons/fa';
 import axios from 'axios';
 import { xml2json } from 'xml-js';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState, AppDispatch } from '../../store/store';
+import Loding from '../Loding';
 
 function Searchbar() {
   const [loading, setLoding] = useState(false);
@@ -16,6 +17,8 @@ function Searchbar() {
   const busNumSelector = useSelector(
     (state: RootState) => state.busInfo.busNum
   );
+
+  console.log('버스검색바 컴포넌트');
 
   const getStationByName = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -109,12 +112,7 @@ function Searchbar() {
           </button>
         </fieldset>
       </form>
-      {loading && (
-        <div className='loading'>
-          <img src={process.env.PUBLIC_URL + 'img/1488.gif'} alt='loading' />
-          <span>Loading</span>
-        </div>
-      )}
+      {loading && <Loding />}
     </div>
   );
 }

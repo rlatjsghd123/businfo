@@ -3,6 +3,7 @@ import '../scss/Header.scss';
 import { FaBus } from 'react-icons/fa';
 
 function Header() {
+  console.log('header 컴포넌트');
   return (
     <header>
       <h1>

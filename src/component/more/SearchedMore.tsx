@@ -1,11 +1,13 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { GoArrowBoth } from 'react-icons/go';
 import { useDispatch, useSelector } from 'react-redux';
 import { xml2json } from 'xml-js';
 import '../../scss/SearchedMore.scss';
 import type { RootState, AppDispatch } from '../../store/store';
 import { TypeLocationList } from '../../type/type';
+import Loding from '../Loding';
+import { v4 as uuidv4 } from 'uuid';
 
 function SearchedMore() {
   const [loading, setLoading] = useState(false);
@@ -20,6 +22,8 @@ function SearchedMore() {
   const locationSelector = useSelector(
     (state: RootState) => state.busInfo.ClickValue
   );
+
+  console.log('버스검색결과더보기 컴포넌트');
   // 버스 정류장정보
   const busStation = async () => {
     setLoading(true);
@@ -61,7 +65,6 @@ function SearchedMore() {
       return;
     }
 
-    console.log(list);
     setSelected(list);
     // 버스정류장위치
     dispatch({
@@ -115,7 +118,7 @@ function SearchedMore() {
     setLoading(false);
   };
 
-  useEffect(() => {
+  useMemo(() => {
     busStation();
   }, [locationSelector]);
 
@@ -191,7 +194,7 @@ function SearchedMore() {
               .map((list) => (
                 <li
                   onClick={() => handleLocationClick(list)}
-                  key={list.station._text}
+                  key={uuidv4()}
                   className={`${selected === list ? 'selected' : ''} ${
                     station === list.direction._text
                       ? 'change_list'
@@ -203,12 +206,7 @@ function SearchedMore() {
               ))}
         </ul>
       </div>
-      {loading && (
-        <div className='loading'>
-          <img src={process.env.PUBLIC_URL + 'img/1488.gif'} alt='loading' />
-          <span>Loading</span>
-        </div>
-      )}
+      {loading && <Loding />}
     </div>
   );
 }
