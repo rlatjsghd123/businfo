@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import '../../scss/Searchbar.scss';
 import { FaSearch } from 'react-icons/fa';
 import axios from 'axios';
