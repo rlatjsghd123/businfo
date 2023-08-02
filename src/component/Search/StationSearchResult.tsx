@@ -38,7 +38,9 @@ function StationSearchResult() {
       const newOffset =
         (e.selected * itemsPerPage) %
         stationSelector.ServiceResult.msgBody.itemList.length;
-      setItemOffset(newOffset);
+      if (itemOffset < newOffset) setItemOffset(newOffset);
+      console.log(stationSelector.ServiceResult.msgBody.itemList.length);
+      console.log(newOffset);
     }
   };
   // 정류장 클릭 시 해당 정류장으로 이동 및 버스도착정보
@@ -136,11 +138,11 @@ function StationSearchResult() {
           <ReactPaginate
             pageCount={Math.ceil(
               Array.isArray(stationSelector.ServiceResult.msgBody.itemList)
-                ? stationSelector.ServiceResult.msgBody.itemList.length
+                ? stationSelector.ServiceResult.msgBody.itemList.length / 10
                 : stationSelector.ServiceResult.msgHeader.headerMsg._text ===
                   '결과가 없습니다.'
                 ? 0
-                : 1 / 10
+                : 1
             )}
             pageRangeDisplayed={5}
             marginPagesDisplayed={-1}

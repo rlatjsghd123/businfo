@@ -16,7 +16,6 @@ function BusLocationInfo() {
   const dispatch = useDispatch<AppDispatch>();
   // 버스의 모든 정류장
 
-  console.log('지도 컴포넌트');
   const busStationSelector = useSelector(
     (state: RootState) => state.busInfo.busStation
   );

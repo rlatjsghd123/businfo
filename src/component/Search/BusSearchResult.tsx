@@ -12,7 +12,6 @@ function BusSearchResult() {
   const [currentItems, setCurrentItems] = useState<TypeCurrentItem[]>([]);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
-  console.log('버스번호검색결과 컴포넌트');
   const dispatch = useDispatch<AppDispatch>();
   const busNumSelector = useSelector(
     (state: RootState) => state.busInfo.busNum
@@ -237,11 +236,11 @@ function BusSearchResult() {
           <ReactPaginate
             pageCount={Math.ceil(
               Array.isArray(busNumSelector.ServiceResult.msgBody.itemList)
-                ? busNumSelector.ServiceResult.msgBody.itemList.length
+                ? busNumSelector.ServiceResult.msgBody.itemList.length / 10
                 : busNumSelector.ServiceResult.msgHeader.headerMsg._text ===
                   '결과가 없습니다.'
                 ? 0
-                : 1 / 10
+                : 1
             )}
             pageRangeDisplayed={5}
             marginPagesDisplayed={-1}
