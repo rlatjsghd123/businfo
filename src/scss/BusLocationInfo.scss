@@ -1,33 +1,10 @@
-.bus_location_info {
-  width: 80%;
-  height: calc(100% - 50px);
-  float: right;
-  .inner_bus_location_info {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    .map {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      .level_change {
-        display: flex;
-        flex-direction: column;
-        z-index: 9999;
-        position: fixed;
-        bottom: 2%;
-        right: 2%;
-      }
-      .station_location_title {
-        position: absolute;
-        top: -50px;
-        font-size: 12px;
-        padding: 5px;
-        background-color: #fff;
-        border: 1px solid #d2d2d2;
-      }
-    }
+.map {
+  .level_change {
+    display: flex;
+    flex-direction: column;
+    z-index: 9999;
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
   }
 }

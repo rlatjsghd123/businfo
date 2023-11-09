@@ -18,8 +18,6 @@ function Searchbar() {
     (state: RootState) => state.busInfo.busNum
   );
 
-  console.log('버스검색바 컴포넌트');
-
   const getStationByName = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoding(true);

@@ -14,7 +14,6 @@ function LocationMore() {
     (state: RootState) => state.busInfo.userClick
   );
 
-  console.log('지도위치더보기 컴포넌트');
   return (
     <div className='station_location'>
       <div className='inner_station_location'>

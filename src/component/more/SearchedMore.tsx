@@ -23,7 +23,6 @@ function SearchedMore() {
     (state: RootState) => state.busInfo.ClickValue
   );
 
-  console.log('버스검색결과더보기 컴포넌트');
   // 버스 정류장정보
   const busStation = async () => {
     setLoading(true);
@@ -182,28 +181,26 @@ function SearchedMore() {
           </ul>
         )}
         <ul className='bus_station'>
-          {busStationSelector != null &&
-            busStationSelector.ServiceResult.msgBody.itemList
-              // 중복값 제거
-              .filter(
-                (list, index: number) =>
-                  busStationSelector.ServiceResult.msgBody.itemList.indexOf(
-                    list
-                  ) === index
-              )
-              .map((list) => (
-                <li
-                  onClick={() => handleLocationClick(list)}
-                  key={uuidv4()}
-                  className={`${selected === list ? 'selected' : ''} ${
-                    station === list.direction._text
-                      ? 'change_list'
-                      : 'station_list'
-                  }`}
-                >
-                  {list.stationNm._text}({list.arsId._text})
-                </li>
-              ))}
+          {busStationSelector?.ServiceResult?.msgBody?.itemList
+            ?.filter(
+              (list, index: number) =>
+                busStationSelector?.ServiceResult?.msgBody?.itemList?.indexOf(
+                  list
+                ) === index
+            )
+            .map((list) => (
+              <li
+                onClick={() => handleLocationClick(list)}
+                key={uuidv4()}
+                className={`${selected === list ? 'selected' : ''} ${
+                  station === list.direction._text
+                    ? 'change_list'
+                    : 'station_list'
+                }`}
+              >
+                {list.stationNm._text}({list.arsId._text})
+              </li>
+            ))}
         </ul>
       </div>
       {loading && <Loding />}

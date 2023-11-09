@@ -8,35 +8,171 @@ import {
   TypeClickValue,
   TpyestationArrive,
 } from '../type/type';
+import mapSlice from '../hook/@redux/mapSlice';
 
 interface defaultType {
-  station: TypeStation | null;
-  busNum: TypeBusNum | null;
-  userClick: TypeUserClick | null;
-  busStation: TypebusStation | null;
-  StationLocation: null;
-  ClickValue: TypeClickValue | null;
+  station: TypeStation;
+  busNum: TypeBusNum;
+  userClick: TypeUserClick;
+  busStation: TypebusStation;
+  StationLocation: undefined;
+  ClickValue: TypeClickValue;
   more: boolean;
   Marker: boolean;
-  location: { lat: number; lng: number };
-  level: number;
   stationMore: boolean;
-  stationArrive: TpyestationArrive | null;
+  stationArrive: TpyestationArrive;
   loading: boolean;
 }
 const initialState: defaultType = {
-  station: null,
-  busNum: null,
-  busStation: null,
-  StationLocation: null,
-  ClickValue: null,
+  station: {
+    ServiceResult: {
+      msgHeader: {
+        headerMsg: {
+          _text: '',
+        },
+      },
+      msgBody: {
+        itemList: {
+          length: 0,
+          tmY: {
+            _text: '',
+          },
+          stId: {
+            _text: '',
+          },
+          tmX: {
+            _text: '',
+          },
+          stNm: {
+            _text: '',
+          },
+          arsId: {
+            _text: '',
+          },
+          busRouteNm: {
+            _text: '',
+          },
+          stStationNm: {
+            _text: '',
+          },
+          edStationNm: {
+            _text: '',
+          },
+          corpNm: {
+            _text: '',
+          },
+          term: {
+            _text: '',
+          },
+          firstBusTm: {
+            _text: '',
+          },
+          lastBusTm: {
+            _text: '',
+          },
+        },
+      },
+    },
+  },
+  busNum: {
+    ServiceResult: {
+      msgHeader: {
+        headerMsg: {
+          _text: '',
+        },
+      },
+      msgBody: {
+        itemList: {
+          length: 0,
+          routeType: {
+            _text: '',
+          },
+          busRouteId: {
+            _text: '',
+          },
+          busRouteNm: {
+            _text: '',
+          },
+          stStationNm: {
+            _text: '',
+          },
+          edStationNm: {
+            _text: '',
+          },
+          corpNm: {
+            _text: '',
+          },
+          term: {
+            _text: '',
+          },
+          firstBusTm: {
+            _text: '',
+          },
+          lastBusTm: {
+            _text: '',
+          },
+        },
+      },
+    },
+  },
+  busStation: {},
+  StationLocation: undefined,
+  ClickValue: {
+    routeType: {
+      _text: '',
+    },
+    busRouteNm: {
+      _text: '',
+    },
+    stStationNm: {
+      _text: '',
+    },
+    edStationNm: {
+      _text: '',
+    },
+    busRouteId: {
+      _text: '',
+    },
+  },
   more: true,
   Marker: true,
-  location: { lat: 37.566535, lng: 126.9779692 },
-  level: 7,
   stationMore: true,
-  stationArrive: null,
-  userClick: null,
+  stationArrive: {
+    ServiceResult: {
+      msgHeader: {
+        headerMsg: {
+          _text: '',
+        },
+      },
+      msgBody: {
+        itemList: {
+          busType1: {
+            _text: '',
+          },
+          busType2: {
+            _text: '',
+          },
+          arrmsg1: {
+            _text: '',
+          },
+          arrmsg2: {
+            _text: '',
+          },
+          busRouteAbrv: {
+            _text: '',
+          },
+        },
+      },
+    },
+  },
+  userClick: {
+    stNm: {
+      _text: '',
+    },
+    stationNm: {
+      _text: '',
+    },
+  },
   loading: false,
 };
 
@@ -62,15 +198,6 @@ const busInfo = createSlice({
     StationMoreClose: (state) => {
       state.stationMore = true;
     },
-    MapLevel: (state, action: PayloadAction<number>) => {
-      state.level = action.payload;
-    },
-    BusLocation: (
-      state,
-      action: PayloadAction<{ lat: number; lng: number }>
-    ) => {
-      state.location = action.payload;
-    },
     OnMarKer: (state) => {
       state.Marker = false;
     },
@@ -92,7 +219,7 @@ const busInfo = createSlice({
     BusStationInfo: (state, action: PayloadAction<TypebusStation>) => {
       state.busStation = action.payload;
     },
-    BusStationLocation: (state, action: PayloadAction<null>) => {
+    BusStationLocation: (state, action: PayloadAction<undefined>) => {
       state.StationLocation = action.payload;
     },
     MoreLocation: (state, action: PayloadAction<TypeClickValue>) => {
@@ -107,6 +234,7 @@ export type AppDispatch = typeof store.dispatch;
 const store = configureStore({
   reducer: {
     busInfo: busInfo.reducer,
+    map: mapSlice,
   },
 });
 export const {
@@ -116,8 +244,6 @@ export const {
   StationArriveInfo,
   StationMoreOpen,
   StationMoreClose,
-  MapLevel,
-  BusLocation,
   OnMarKer,
   OffMarKer,
   MoreClose,
@@ -128,4 +254,5 @@ export const {
   BusStationInfo,
   BusStationLocation,
 } = busInfo.actions;
+
 export default store;

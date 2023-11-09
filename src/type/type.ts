@@ -73,15 +73,42 @@ export interface TypeLocationList {
   };
 }
 
+export interface Location {
+  lat: number;
+  lng: number;
+}
+
+export interface TypebusStationList {
+  list: {
+    gpsX: {
+      _text: string;
+    };
+    gpsY: {
+      _text: string;
+    };
+    station: {
+      _text: string;
+    };
+    stationNm: {
+      _text: string;
+    };
+    arsId: {
+      _text: string;
+    };
+    direction: {
+      _text: string;
+    };
+  };
+}
 export interface TypebusStation {
-  ServiceResult: {
-    msgHeader: {
+  ServiceResult?: {
+    msgHeader?: {
       headerMsg: {
         _text: string;
       };
     };
-    msgBody: {
-      itemList: [
+    msgBody?: {
+      itemList?: [
         {
           gpsX: {
             _text: string;

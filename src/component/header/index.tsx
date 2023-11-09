@@ -1,16 +1,15 @@
 import React from 'react';
-import '../scss/Header.scss';
+import * as S from './style';
 import { FaBus } from 'react-icons/fa';
 
 function Header() {
-  console.log('header 컴포넌트');
   return (
-    <header>
-      <h1>
+    <S.Header>
+      <S.Title>
         <FaBus />
         서울버스정보
-      </h1>
-    </header>
+      </S.Title>
+    </S.Header>
   );
 }
 

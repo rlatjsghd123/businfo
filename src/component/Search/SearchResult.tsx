@@ -1,10 +1,9 @@
 import React from 'react';
 import '../../scss/SearchResult.scss';
-import BusSearchResult from './BusSearchResult';
-import StationSearchResult from './StationSearchResult';
+import StationSearchResult from '../result/StationSearchResult';
+import BusSearchResult from '../../content/result';
 
 function SearchResult() {
-  console.log('버스검색결과 컴포넌트');
   return (
     <div className='search_result'>
       <div className='inner_search_result'>

@@ -3,22 +3,23 @@ import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
 import { xml2json } from 'xml-js';
-import type { RootState, AppDispatch } from '../../store/store';
-import { TypeStaitionList } from '../../type/type';
-import Loding from '../Loding';
+import type { RootState, AppDispatch } from '../../../store/store';
+import { TypeStaitionList } from '../../../type/type';
+import Loding from '../../Loding';
 import { v4 as uuidv4 } from 'uuid';
+import BusNoData from '../busNoData';
 
 function StationSearchResult() {
   const [currentItems, setCurrentItems] = useState<TypeStaitionList[]>([]);
   const [itemOffset, setItemOffset] = useState(0);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const itemsPerPage = 12;
+  const itemsPerPage = 10;
 
-  console.log('정류장검색결과 컴포넌트');
   const stationSelector = useSelector(
     (state: RootState) => state.busInfo.station
   );
+
   useEffect(() => {
     if (stationSelector != null) {
       const endOffset = itemOffset + itemsPerPage;
@@ -34,14 +35,10 @@ function StationSearchResult() {
   }, [stationSelector, itemOffset, itemsPerPage]);
 
   const handlePageChange = (e: { selected: number }) => {
-    if (stationSelector !== null) {
-      const newOffset =
-        (e.selected * itemsPerPage) %
-        stationSelector.ServiceResult.msgBody.itemList.length;
-      if (itemOffset < newOffset) setItemOffset(newOffset);
-      console.log(stationSelector.ServiceResult.msgBody.itemList.length);
-      console.log(newOffset);
-    }
+    const newOffset =
+      (e.selected * itemsPerPage) %
+      stationSelector?.ServiceResult.msgBody.itemList.length;
+    if (itemOffset < newOffset) setItemOffset(newOffset);
   };
   // 정류장 클릭 시 해당 정류장으로 이동 및 버스도착정보
   const stationInfo = (list: TypeStaitionList) => {
@@ -71,7 +68,6 @@ function StationSearchResult() {
   };
   const busStationArriveInfo = async (list: TypeStaitionList) => {
     setLoading(true);
-
     const stationArriveRes = await axios.get(
       `http://ws.bus.go.kr/api/rest/stationinfo/getStationByUid?ServiceKey=${process.env.REACT_APP_SEOUL_BUS_API_KEY}&arsId=${list.arsId._text}`
     );
@@ -156,12 +152,7 @@ function StationSearchResult() {
           />
         </>
       ) : (
-        <>
-          <h3>정류장 0건</h3>
-          <ul className='bus_station_list'>
-            <li></li>
-          </ul>
-        </>
+        <BusNoData text='정류장 0건' />
       )}
       {loading && <Loding />}
     </>
