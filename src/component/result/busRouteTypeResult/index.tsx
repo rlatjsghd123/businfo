@@ -1,4 +1,5 @@
 import React from 'react';
+import * as S from './style';
 import { TypeCurrentItem } from '../../../type/type';
 
 interface BusRouteTypeResultProps {
@@ -9,29 +10,29 @@ interface BusRouteTypeResultProps {
 function BusRouteTypeResult({ list, fc }: BusRouteTypeResultProps) {
   return (
     <>
-      <h4>
+      <S.CategoryTitle>
         {list.routeType._text === '1' && (
-          <span className='bus_category red'>공항</span>
+          <S.Category className="red">공항</S.Category>
         )}
         {list.routeType._text === '2' && (
-          <span className='bus_category orange'>마을</span>
+          <S.Category className="orange">마을</S.Category>
         )}
         {list.routeType._text === '3' && (
-          <span className='bus_category blue'>간선</span>
+          <S.Category className="blue">간선</S.Category>
         )}
         {list.routeType._text === '4' && (
-          <span className='bus_category green'>지선</span>
+          <S.Category className="green">지선</S.Category>
         )}
         {list.routeType._text === '5' && (
-          <span className='bus_category yellow'>순환</span>
+          <S.Category className="yellow">순환</S.Category>
         )}
         {list.routeType._text === '6' && (
-          <span className='bus_category red'>광역</span>
+          <S.Category className="red">광역</S.Category>
         )}
-        <span onClick={fc}>{list.busRouteNm._text}</span>
-      </h4>
+        <S.Category onClick={fc}>{list.busRouteNm._text}</S.Category>
+      </S.CategoryTitle>
     </>
   );
 }
 
-export default BusRouteTypeResult;
+export default React.memo(BusRouteTypeResult);

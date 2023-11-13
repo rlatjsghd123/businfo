@@ -1,5 +1,5 @@
 import React from 'react';
-
+import * as S from './style';
 interface BusNoDataProps {
   text: string;
 }
@@ -7,12 +7,12 @@ interface BusNoDataProps {
 function BusNoData({ text }: BusNoDataProps) {
   return (
     <>
-      <h3>{text}</h3>
-      <ul className='busNum_list'>
-        <li></li>
-      </ul>
+      <S.Title>{text}</S.Title>
+      <S.BusUl>
+        <S.BusList></S.BusList>
+      </S.BusUl>
     </>
   );
 }
 
-export default BusNoData;
+export default React.memo(BusNoData);

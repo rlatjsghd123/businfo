@@ -1,5 +1,6 @@
 import React from 'react';
 import { TypeCurrentItem } from '../../../type/type';
+import { BusTime, TimeList } from '../busInfoData/style';
 
 interface BusTimeListProps {
   list: TypeCurrentItem;
@@ -7,18 +8,18 @@ interface BusTimeListProps {
 
 function BusTimeList({ list }: BusTimeListProps) {
   return (
-    <ul className='bus_time'>
-      <li>배차 : {list.term._text}분</li>
-      <li>
+    <BusTime>
+      <TimeList>배차 : {list.term._text}분</TimeList>
+      <TimeList>
         첫차 : {list.firstBusTm._text.substring(8, 2)}:
         {list.firstBusTm._text.substring(10, 2)}분
-      </li>
-      <li>
+      </TimeList>
+      <TimeList>
         막차 : {list.lastBusTm._text.substring(8, 2)}:
         {list.lastBusTm._text.substring(10, 2)}분
-      </li>
-    </ul>
+      </TimeList>
+    </BusTime>
   );
 }
 
-export default BusTimeList;
+export default React.memo(BusTimeList);

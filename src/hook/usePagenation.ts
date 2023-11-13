@@ -6,30 +6,29 @@ function usePagenation() {
   const [currentItems, setCurrentItems] = useState<any>([]);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 10;
-  const busNumSelector = useSelector(
-    (state: RootState) => state.busInfo.busNum
-  );
+  const busNumSelector = useSelector((state: RootState) => state.search.busNum);
   const stationSelector = useSelector(
-    (state: RootState) => state.busInfo.station
+    (state: RootState) => state.search.station,
   );
   const busNumLength = busNumSelector.ServiceResult.msgBody.itemList.length;
   const stationLength = stationSelector.ServiceResult.msgBody.itemList.length;
+
   const current = () => {
     const endOffset = itemOffset + itemsPerPage;
     if (Array.isArray(busNumSelector.ServiceResult.msgBody.itemList)) {
       setCurrentItems(
         busNumSelector.ServiceResult.msgBody.itemList.slice(
           itemOffset,
-          endOffset
-        )
+          endOffset,
+        ),
       );
     }
     if (Array.isArray(stationSelector.ServiceResult.msgBody.itemList)) {
       setCurrentItems(
         stationSelector.ServiceResult.msgBody.itemList.slice(
           itemOffset,
-          endOffset
-        )
+          endOffset,
+        ),
       );
     }
   };

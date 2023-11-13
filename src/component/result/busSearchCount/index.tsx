@@ -1,15 +1,16 @@
 import React from 'react';
-import { TypeCurrentItem } from '../../../type/type';
+import * as S from './style';
+import { TypeCurrentItem, TypeStaitionList } from '../../../type/type';
 
 interface BusSearchCountProps {
-  moreList: TypeCurrentItem;
+  moreList: TypeCurrentItem | TypeStaitionList;
   text: string;
   noResult: string;
 }
 
 function BusSearchCount({ text, moreList, noResult }: BusSearchCountProps) {
   return (
-    <h3>
+    <S.BusCountTitle>
       {text}
       {Array.isArray(moreList)
         ? moreList.length
@@ -17,8 +18,8 @@ function BusSearchCount({ text, moreList, noResult }: BusSearchCountProps) {
         ? 0
         : 1}
       건
-    </h3>
+    </S.BusCountTitle>
   );
 }
 
-export default BusSearchCount;
+export default React.memo(BusSearchCount);

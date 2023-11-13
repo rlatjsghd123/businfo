@@ -24,7 +24,24 @@ export interface TypeClickValue {
   };
 }
 
-export interface TpyestationArrive {
+export interface TypeStationArriveList {
+  busType1: {
+    _text: string;
+  };
+  busType2: {
+    _text: string;
+  };
+  arrmsg1: {
+    _text: string;
+  };
+  arrmsg2: {
+    _text: string;
+  };
+  busRouteAbrv: {
+    _text: string;
+  };
+}
+export interface TypestationArrive {
   ServiceResult: {
     msgHeader: {
       headerMsg: {
@@ -101,14 +118,14 @@ export interface TypebusStationList {
   };
 }
 export interface TypebusStation {
-  ServiceResult?: {
-    msgHeader?: {
+  ServiceResult: {
+    msgHeader: {
       headerMsg: {
         _text: string;
       };
     };
-    msgBody?: {
-      itemList?: [
+    msgBody: {
+      itemList: [
         {
           gpsX: {
             _text: string;

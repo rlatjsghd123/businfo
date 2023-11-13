@@ -6,7 +6,7 @@ import {
   MapTypeControl,
   ZoomControl,
 } from 'react-kakao-maps-sdk';
-import LocationMore from '../../more/LocationMore';
+import LocationMore from '../../../content/more/LocationMore';
 import { v4 as uuidv4 } from 'uuid';
 import BusLocationTitle from '../BusLocationTitle';
 import { Location, TypebusStation } from '../../../type/type';
@@ -33,7 +33,7 @@ function BusLocationInfo({
         height: '100%',
       }}
     >
-      {busStationSelector?.ServiceResult?.msgBody?.itemList?.map((list) => (
+      {busStationSelector?.ServiceResult?.msgBody?.itemList?.map(list => (
         <div key={uuidv4()}>
           <MapMarker
             image={{

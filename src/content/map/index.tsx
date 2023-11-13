@@ -1,5 +1,5 @@
 import * as S from './style';
-import useMapAction from '../../hook/Map/useMapAction';
+import useMapAction from '../../hook/map/useMapAction';
 import BusLocationInfo from '../../component/map/BusLocationInfo';
 import { useEffect } from 'react';
 

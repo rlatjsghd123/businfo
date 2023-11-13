@@ -1,8 +1,8 @@
 import { instance } from './index';
 
-export const getStationByName = async (busRouteId: string) => {
+export const getStationBySearch = async (searchWord: string) => {
   const response = await instance.get(
-    `busRouteInfo/getStaionByRoute?ServiceKey=${process.env.REACT_APP_SEOUL_BUS_API_KEY}&busRouteId=${busRouteId}`
+    `http://ws.bus.go.kr/api/rest/stationinfo/getStationByName?ServiceKey=${process.env.REACT_APP_SEOUL_BUS_API_KEY}&stSrch=${searchWord}`
   );
   return response.data;
 };
