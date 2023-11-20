@@ -10,32 +10,31 @@ function usePagenation() {
   const stationSelector = useSelector(
     (state: RootState) => state.search.station,
   );
-  const busNumLength = busNumSelector.ServiceResult.msgBody.itemList.length;
-  const stationLength = stationSelector.ServiceResult.msgBody.itemList.length;
+  const busNumLength = busNumSelector?.ServiceResult?.msgBody?.itemList?.length;
+  const stationLength =
+    stationSelector?.ServiceResult?.msgBody?.itemList?.length;
+  // const endOffset = itemOffset + itemsPerPage;
 
-  const current = () => {
-    const endOffset = itemOffset + itemsPerPage;
-    if (Array.isArray(busNumSelector.ServiceResult.msgBody.itemList)) {
-      setCurrentItems(
-        busNumSelector.ServiceResult.msgBody.itemList.slice(
-          itemOffset,
-          endOffset,
-        ),
-      );
-    }
-    if (Array.isArray(stationSelector.ServiceResult.msgBody.itemList)) {
-      setCurrentItems(
-        stationSelector.ServiceResult.msgBody.itemList.slice(
-          itemOffset,
-          endOffset,
-        ),
-      );
-    }
-  };
+  // if (Array.isArray(busNumSelector)) {
+  //   setCurrentItems(
+  //     busNumSelector?.ServiceResult?.msgBody?.itemList.slice(
+  //       itemOffset,
+  //       endOffset,
+  //     ),
+  //   );
+  // }
+  // if (Array.isArray(stationSelector)) {
+  //   setCurrentItems(
+  //     stationSelector?.ServiceResult?.msgBody?.itemList.slice(
+  //       itemOffset,
+  //       endOffset,
+  //     ),
+  //   );
+  // }
 
+  const endOffset = itemOffset + itemsPerPage;
   const handlePageChange = (e: { selected: number }) => {
-    const newOffset =
-      (e.selected * itemsPerPage) % busNumLength ? busNumLength : stationLength;
+    const newOffset = (e.selected * itemsPerPage) % stationLength;
 
     setItemOffset(newOffset);
   };
@@ -43,7 +42,10 @@ function usePagenation() {
   return {
     handlePageChange,
     currentItems,
-    current,
+    setCurrentItems,
+    itemOffset,
+    itemsPerPage,
+    endOffset,
   };
 }
 

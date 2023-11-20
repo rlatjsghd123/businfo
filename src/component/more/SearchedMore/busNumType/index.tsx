@@ -1,5 +1,12 @@
 import { StartEnd } from 'component/result/busInfoData/style';
-import { Category } from 'component/result/busRouteTypeResult/style';
+import {
+  Blue,
+  Gray,
+  Green,
+  Orange,
+  Red,
+  Yellow,
+} from 'component/result/busRouteTypeResult/style';
 import * as S from './style';
 import { GoArrowBoth } from 'react-icons/go';
 import { TypeClickValue } from 'type/type';
@@ -14,25 +21,27 @@ function BusNumType({ locationSelector, handleCloseClick }: BusNumTypeProps) {
   return (
     <S.BusNumUl>
       <li>
-        {locationSelector.routeType._text === '1' ? (
-          <Category className="bus_category red">공항</Category>
-        ) : locationSelector.routeType._text === '2' ? (
-          <Category className="bus_category orange">마을</Category>
-        ) : locationSelector.routeType._text === '3' ? (
-          <Category className="bus_category blue">간선</Category>
-        ) : locationSelector.routeType._text === '4' ? (
-          <Category className="bus_category green">지선</Category>
-        ) : locationSelector.routeType._text === '5' ? (
-          <Category className="bus_category yellow">순환</Category>
+        {locationSelector?.routeType?._text === '1' ? (
+          <Red>공항</Red>
+        ) : locationSelector?.routeType?._text === '2' ? (
+          <Orange>마을</Orange>
+        ) : locationSelector?.routeType?._text === '3' ? (
+          <Blue>간선</Blue>
+        ) : locationSelector?.routeType?._text === '4' ? (
+          <Green>지선</Green>
+        ) : locationSelector?.routeType?._text === '5' ? (
+          <Yellow>순환</Yellow>
         ) : (
-          locationSelector.routeType._text === '6' && (
-            <Category className="bus_category red">광역</Category>
-          )
+          locationSelector?.routeType?._text === '6' && <Red>광역</Red>
         )}
+        {locationSelector?.routeType?._text === '7' && <Blue>인천</Blue>}
+        {locationSelector?.routeType?._text === '8' && <Green>경기</Green>}
+        {locationSelector?.routeType?._text === '9' && <Gray>폐지</Gray>}
+        {locationSelector?.routeType?._text === '0' && <Orange>공용</Orange>}
         {locationSelector.busRouteNm._text}
         <StartEnd>
-          ({locationSelector.stStationNm._text} <GoArrowBoth />
-          {locationSelector.edStationNm._text})
+          ({locationSelector?.stStationNm?._text} <GoArrowBoth />
+          {locationSelector?.edStationNm?._text})
         </StartEnd>
       </li>
       <S.Close onClick={handleCloseClick}>x</S.Close>

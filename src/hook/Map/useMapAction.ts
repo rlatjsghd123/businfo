@@ -22,11 +22,12 @@ function useMapAction() {
   const MapLevelSelector = useSelector((state: RootState) => state.map.level);
 
   const busLocation = () => {
-    const mapLocation = busStationSelector.ServiceResult.msgBody.itemList
+    const mapLocation = busStationSelector?.ServiceResult?.msgBody?.itemList
       .slice()
       .sort((a, b) => Number(a) - Number(b));
     const lat = mapLocation[Math.floor(mapLocation.length / 2)].gpsY._text;
     const lng = mapLocation[Math.floor(mapLocation.length / 2)].gpsX._text;
+
     dispatch({
       type: 'LocationMapReducer/BusLocation',
       payload: {

@@ -24,6 +24,8 @@ function BusLocationInfo({
   StationMoreSelector,
   busStationSelector,
 }: BusLocationInfoProps) {
+  console.log(busLocationSelector);
+  console.log(MapLevelSelector);
   return (
     <Map
       center={busLocationSelector}
@@ -33,7 +35,7 @@ function BusLocationInfo({
         height: '100%',
       }}
     >
-      {busStationSelector?.ServiceResult?.msgBody?.itemList?.map(list => (
+      {busStationSelector?.ServiceResult.msgBody.itemList.map(list => (
         <div key={uuidv4()}>
           <MapMarker
             image={{
@@ -65,7 +67,6 @@ function BusLocationInfo({
           </CustomOverlayMap>
         </div>
       ))}
-
       {StationMoreSelector === false && <LocationMore />}
       <ZoomControl position={kakao.maps.ControlPosition.TOPRIGHT} />
       <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />

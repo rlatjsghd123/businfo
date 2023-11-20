@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-
 import mapSlice from '../hook/@redux/mapSlice';
 import loadingSlice from 'hook/@redux/loadingSlice';
 import moreSlice from 'hook/@redux/moreSlice';
@@ -17,6 +16,8 @@ const store = configureStore({
     result: resultSlice,
     search: searchSlice,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export default store;

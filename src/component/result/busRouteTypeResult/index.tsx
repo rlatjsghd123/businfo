@@ -9,29 +9,19 @@ interface BusRouteTypeResultProps {
 
 function BusRouteTypeResult({ list, fc }: BusRouteTypeResultProps) {
   return (
-    <>
-      <S.CategoryTitle>
-        {list.routeType._text === '1' && (
-          <S.Category className="red">공항</S.Category>
-        )}
-        {list.routeType._text === '2' && (
-          <S.Category className="orange">마을</S.Category>
-        )}
-        {list.routeType._text === '3' && (
-          <S.Category className="blue">간선</S.Category>
-        )}
-        {list.routeType._text === '4' && (
-          <S.Category className="green">지선</S.Category>
-        )}
-        {list.routeType._text === '5' && (
-          <S.Category className="yellow">순환</S.Category>
-        )}
-        {list.routeType._text === '6' && (
-          <S.Category className="red">광역</S.Category>
-        )}
-        <S.Category onClick={fc}>{list.busRouteNm._text}</S.Category>
-      </S.CategoryTitle>
-    </>
+    <S.CategoryTitle>
+      {list?.routeType?._text === '1' && <S.Red>공항</S.Red>}
+      {list?.routeType?._text === '2' && <S.Orange>마을</S.Orange>}
+      {list?.routeType?._text === '3' && <S.Blue>간선</S.Blue>}
+      {list?.routeType?._text === '4' && <S.Green>지선</S.Green>}
+      {list?.routeType?._text === '5' && <S.Yellow>순환</S.Yellow>}
+      {list?.routeType?._text === '6' && <S.Red>광역</S.Red>}
+      {list?.routeType?._text === '7' && <S.Blue>인천</S.Blue>}
+      {list?.routeType?._text === '8' && <S.Green>경기</S.Green>}
+      {list?.routeType?._text === '9' && <S.Gray>폐지</S.Gray>}
+      {list?.routeType?._text === '0' && <S.Orange>공용</S.Orange>}
+      <S.BusNum onClick={fc}>{list?.busRouteNm?._text}</S.BusNum>
+    </S.CategoryTitle>
   );
 }
 

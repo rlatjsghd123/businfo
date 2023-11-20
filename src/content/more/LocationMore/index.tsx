@@ -11,11 +11,11 @@ import useMore from 'hook/more/useMore';
 function LocationMore() {
   // 현재정류장에 오는 버스,도착정보
   const arriveSelector = useSelector(
-    (state: RootState) => state.result.stationArrive
+    (state: RootState) => state.result.stationArrive,
   );
 
   const UserClickedStationSelector = useSelector(
-    (state: RootState) => state.result.userClick
+    (state: RootState) => state.result.userClick,
   );
   const arriveMore = arriveSelector.ServiceResult.msgBody.itemList;
 
@@ -31,8 +31,15 @@ function LocationMore() {
         <S.StationLocationInfo>
           <S.ArriveInfo>
             <caption className="blind">버스위치정보</caption>
-            <BusArriveInfoTitle />
+            <colgroup>
+              <col style={{ width: '*' }} />
+              <col style={{ width: '13%' }} />
+              <col style={{ width: '22%' }} />
+              <col style={{ width: '13%' }} />
+              <col style={{ width: '22%' }} />
+            </colgroup>
             <tbody>
+              <BusArriveInfoTitle />
               {Array.isArray(arriveMore) ? (
                 <BusArriveArrayInfo arriveMore={arriveMore} />
               ) : (

@@ -14,7 +14,7 @@ function StationSearchData({
 }: StationSearchDataProps) {
   return (
     <>
-      {currentItems.map((list: TypeStaitionList) => (
+      {currentItems?.map((list: TypeStaitionList) => (
         <S.StationList onClick={() => stationInfo(list)} key={uuidv4()}>
           {list.stNm._text}({list.arsId._text})
         </S.StationList>

@@ -5,7 +5,7 @@ import Searchbar from '../../component/Search/searchbar';
 import useSearch from 'hook/search/useSearch';
 
 function BusSearch() {
-  const { getSearch, setSearch, search } = useSearch();
+  const { getSearch, search, setSearch } = useSearch();
   return (
     <S.SearchDiv>
       <Searchbar getSearch={getSearch} setSearch={setSearch} search={search} />

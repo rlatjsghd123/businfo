@@ -1,9 +1,9 @@
-import useGetStationByRoute from 'hook/@query/useGetStationByRoute';
-import useGetStationByUid from 'hook/@query/useGetStationByUid';
+import { instance } from 'api';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from 'store/store';
 import { TypeLocationList } from 'type/type';
+import { xml2json } from 'xml-js';
 
 function useMore() {
   const [station, setStation] = useState<string>('');
@@ -28,11 +28,25 @@ function useMore() {
       type: 'loadingReducer/IsLoading',
       payload: true,
     });
+    const response = await instance.get(
+      `busRouteInfo/getStaionByRoute?ServiceKey=${process.env.REACT_APP_SEOUL_BUS_API_KEY}&busRouteId=${locationSelector?.busRouteId?._text}`,
+    );
+    try {
+      const options = {
+        compact: true,
+        ignoreComment: true,
+        spaces: 4,
+      };
+      const jsonData = xml2json(response.data, options);
+      const json = JSON.parse(jsonData);
 
-    dispatch({
-      type: 'searchReducer/BusStationInfo',
-      payload: useGetStationByRoute(locationSelector.busRouteId._text),
-    });
+      dispatch({
+        type: 'searchReducer/BusStationInfo',
+        payload: json,
+      });
+    } catch (error) {
+      console.log(error);
+    }
 
     dispatch({
       type: 'loadingReducer/IsLoading',
@@ -85,18 +99,43 @@ function useMore() {
       type: 'loadingReducer/IsLoading',
       payload: true,
     });
-    dispatch({
-      type: 'resultReducer/StationArriveInfo',
-      payload: useGetStationByUid(list.arsId._text),
-    });
+
+    const response = await instance.get(
+      `stationinfo/getStationByUid?ServiceKey=${process.env.REACT_APP_SEOUL_BUS_API_KEY}&arsId=${list.arsId._text}`,
+    );
+    try {
+      const options = {
+        compact: true,
+        ignoreComment: true,
+        spaces: 4,
+      };
+      const jsonData = xml2json(response.data, options);
+      const json = JSON.parse(jsonData);
+
+      dispatch({
+        type: 'resultReducer/StationArriveInfo',
+        payload: json,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
     dispatch({
       type: 'loadingReducer/IsLoading',
       payload: false,
     });
   };
 
-  const onSationNumber = () => {
-    setStation(locationSelector.stStationNm._text);
+  const HandleStationClick = (e: React.MouseEvent<HTMLLIElement>) => {
+    const currentValue = e.currentTarget.innerText;
+    const startStation = locationSelector?.stStationNm?._text;
+    const endStation = locationSelector?.edStationNm?._text;
+    console.log(currentValue);
+    if (currentValue === startStation) {
+      setStation(startStation);
+    } else {
+      setStation(endStation);
+    }
   };
 
   return {
@@ -105,7 +144,8 @@ function useMore() {
     handleLocationClick,
     busStation,
     selected,
-    onSationNumber,
+    HandleStationClick,
+    station,
   };
 }
 

@@ -12,11 +12,11 @@ export const SearchForm = styled.form`
 `;
 
 export const Button = styled.button`
-  font-size: 12px;
   cursor: pointer;
   position: absolute;
-  top: 45%;
-  right: 8%;
+  top: 50%;
+  transform: tramslateY(-50%);
+  right: 6%;
   color: #ffad62;
   background: transparent;
   border: none;
@@ -30,10 +30,10 @@ export const SearchInput = styled.input`
     font-size: 10px;
   }
   font-size: 12px;
-  padding-left: 20px;
-  margin-top: 0.5rem;
+  margin-top: 0.8rem;
   height: 30px;
   border-radius: 20px;
   width: 100%;
   border: 2px solid #ffad62;
+  text-indent: 15px;
 `;

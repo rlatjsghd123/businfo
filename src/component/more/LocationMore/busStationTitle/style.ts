@@ -13,7 +13,7 @@ export const StationTitleSpan = styled.div`
   cursor: pointer;
 `;
 
-export const StationTitleH1 = styled.div`
+export const StationTitleH1 = styled.h1`
   font-size: 12px;
   font-weight: normal;
 `;

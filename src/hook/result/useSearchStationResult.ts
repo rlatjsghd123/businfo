@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { TypeStaitionList } from '../../type/type';
 import { AppDispatch } from '../../store/store';
 import { useDispatch } from 'react-redux';
-import useGetStationByUid from '../@query/useGetStationByUid';
+import { xml2json } from 'xml-js';
+import { instance } from 'api';
 
 function useSearchStationResult() {
   const dispatch = useDispatch<AppDispatch>();
@@ -38,10 +39,26 @@ function useSearchStationResult() {
       type: 'loadingReducer/IsLoading',
       payload: true,
     });
-    dispatch({
-      type: 'resultReducer/StationArriveInfo',
-      payload: useGetStationByUid(list.arsId),
-    });
+    const response = await instance.get(
+      `stationinfo/getStationByUid?ServiceKey=${process.env.REACT_APP_SEOUL_BUS_API_KEY}&arsId=${list.arsId._text}`,
+    );
+    try {
+      const options = {
+        compact: true,
+        ignoreComment: true,
+        spaces: 4,
+      };
+      const jsonData = xml2json(response.data, options);
+      const json = JSON.parse(jsonData);
+
+      dispatch({
+        type: 'resultReducer/StationArriveInfo',
+        payload: json,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
     dispatch({
       type: 'loadingReducer/IsLoading',
       payload: false,

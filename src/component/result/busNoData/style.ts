@@ -7,7 +7,7 @@ export const Title = styled.h3`
 `;
 
 export const BusUl = styled.ul`
-  height: 346px;
+  height: 368px;
   overflow-y: scroll;
 `;
 

@@ -9,6 +9,7 @@ import BusNoData from '../../../component/result/busNoData';
 import usePagenation from '../../../hook/usePagenation';
 import BusInfoData from '../../../component/result/busInfoData';
 import { BusUl } from 'component/result/busNoData/style';
+import { useEffect } from 'react';
 
 function BusSearchResult() {
   const {
@@ -16,54 +17,89 @@ function BusSearchResult() {
     busStationLocationFalse,
     busNumSelector,
     moreSelector,
-    moreList,
   } = useSearchResult();
-  const { current, currentItems, handlePageChange } = usePagenation();
+
+  const BusMoreList = busNumSelector?.ServiceResult?.msgBody?.itemList;
+  const busHeaderMsg =
+    busNumSelector?.ServiceResult?.msgHeader?.headerMsg?._text;
+
+  const {
+    handlePageChange,
+    currentItems,
+    setCurrentItems,
+    itemOffset,
+    endOffset,
+  } = usePagenation();
+
+  useEffect(() => {
+    if (BusMoreList?.length > 1) {
+      setCurrentItems(
+        busNumSelector?.ServiceResult?.msgBody?.itemList.slice(
+          itemOffset,
+          endOffset,
+        ),
+      );
+    }
+  }, [endOffset, busNumSelector]);
 
   return (
     <>
-      <BusSearchCount
-        moreList={moreList}
-        noResult={busNumSelector.ServiceResult.msgHeader.headerMsg._text}
-        text="버스"
-      />
-      <BusUl>
-        {busNumSelector.ServiceResult.msgHeader.headerMsg._text ===
-        '결과가 없습니다.' ? (
-          <BusNoSearchResult />
-        ) : Array.isArray(moreList) ? (
-          <BusSearchData
-            busStationLocation={busStationLocation}
-            currentItems={currentItems}
+      {BusMoreList?.length !== 1 ? (
+        <>
+          <BusSearchCount
+            moreList={BusMoreList}
+            noResult={busHeaderMsg}
+            text="버스"
           />
-        ) : (
-          <BusInfoData
-            moreList={moreList}
-            busStationLocationFalse={busStationLocationFalse}
+          <BusUl>
+            {busHeaderMsg === '결과가 없습니다.' ? (
+              <BusNoSearchResult />
+            ) : Array.isArray(BusMoreList) ? (
+              <BusSearchData
+                busStationLocation={busStationLocation}
+                currentItems={currentItems}
+              />
+            ) : (
+              <BusInfoData
+                moreList={BusMoreList}
+                busStationLocationFalse={busStationLocationFalse}
+              />
+            )}
+          </BusUl>
+          <ReactPaginate
+            pageCount={Math.ceil(
+              Array.isArray(BusMoreList)
+                ? BusMoreList.length / 10
+                : busHeaderMsg === '결과가 없습니다.'
+                  ? 0
+                  : 1,
+            )}
+            pageRangeDisplayed={5}
+            marginPagesDisplayed={-1}
+            breakLabel={''}
+            previousLabel={'<'}
+            nextLabel={'>'}
+            onPageChange={handlePageChange}
+            containerClassName={'pagination-ul'}
+            activeClassName={'currentPage'}
+            renderOnZeroPageCount={null}
           />
-        )}
-      </BusUl>
-      <ReactPaginate
-        pageCount={Math.ceil(
-          Array.isArray(busNumSelector.ServiceResult.msgBody.itemList)
-            ? busNumSelector.ServiceResult.msgBody.itemList.length / 10
-            : busNumSelector.ServiceResult.msgHeader.headerMsg._text ===
-              '결과가 없습니다.'
-            ? 0
-            : 1
-        )}
-        pageRangeDisplayed={5}
-        marginPagesDisplayed={-1}
-        breakLabel={''}
-        previousLabel={'<'}
-        nextLabel={'>'}
-        onPageChange={handlePageChange}
-        containerClassName={'pagination-ul'}
-        activeClassName={'currentPage'}
-        renderOnZeroPageCount={null}
-      />
-      : (
-      <BusNoData text="버스 0건" />){moreSelector === false && <SearchedMore />}
+          {moreSelector === false && <SearchedMore />}
+        </>
+      ) : (
+        <>
+          <BusNoData text="버스 0건" />
+          <ReactPaginate
+            pageCount={1}
+            breakLabel={''}
+            previousLabel={'<'}
+            nextLabel={'>'}
+            containerClassName={'pagination-ul'}
+            activeClassName={'currentPage'}
+            renderOnZeroPageCount={null}
+          />
+        </>
+      )}
     </>
   );
 }

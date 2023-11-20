@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../../component/header/index';
 import BusLocation from '../map';
 import BusSearch from '../search';

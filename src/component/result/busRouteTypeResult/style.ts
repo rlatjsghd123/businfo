@@ -7,25 +7,38 @@ export const CategoryTitle = styled.h4`
 `;
 
 export const Category = styled.span`
-    cursor: pointer;
-    font-size: 10px;
-    margin-right: 5px;
-    padding: 1px 3px;
-    border-radius: 7px;
-    color: #fff;
-  .red {
-    background-color: red;
-  }
-  .orange {
-    background-color: #ff7f00;
-  }
-  .blue {
-    background-color: blue;
-  }
-  .green {
-    background-color: green;
-  }
-  .yellow {
-    background-color: yellow;
+  cursor: pointer;
+  font-size: 10px;
+  margin-right: 5px;
+  padding: 1px 3px;
+  border-radius: 7px;
+  color: #fff;
+`;
 
+export const BusNum = styled(Category)`
+  color: #000;
+  font-size: 12px;
+`;
+
+export const Red = styled(Category)`
+  background-color: #ff0000;
+`;
+
+export const Blue = styled(Category)`
+  background-color: blue;
+`;
+
+export const Yellow = styled(Category)`
+  background-color: yellow;
+`;
+
+export const Green = styled(Category)`
+  background-color: green;
+`;
+
+export const Orange = styled(Category)`
+  background-color: #ff7f00;
+`;
+export const Gray = styled(Category)`
+  background-color: #d3d3d3;
 `;

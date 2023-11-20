@@ -145,47 +145,32 @@ export interface TypebusStation {
           direction: {
             _text: string;
           };
-        }
+        },
       ];
     };
   };
 }
 
 export interface TypeStaitionList {
-  stNm: {
+  tmY: {
     _text: string;
   };
   stId: {
     _text: string;
   };
+  tmX: {
+    _text: string;
+  };
+  stNm: {
+    _text: string;
+  };
   arsId: {
     _text: string;
   };
-  busRouteNm: {
+  posX: {
     _text: string;
   };
-  stStationNm: {
-    _text: string;
-  };
-  edStationNm: {
-    _text: string;
-  };
-  corpNm: {
-    _text: string;
-  };
-  term: {
-    _text: string;
-  };
-  firstBusTm: {
-    _text: string;
-  };
-  lastBusTm: {
-    _text: string;
-  };
-  tmY: {
-    _text: string;
-  };
-  tmX: {
+  posY: {
     _text: string;
   };
 }
@@ -197,48 +182,11 @@ export interface TypeStation {
       };
     };
     msgBody: {
-      itemList: {
-        length: number;
-        tmY: {
-          _text: string;
-        };
-        stId: {
-          _text: string;
-        };
-        tmX: {
-          _text: string;
-        };
-        stNm: {
-          _text: string;
-        };
-        arsId: {
-          _text: string;
-        };
-        busRouteNm: {
-          _text: string;
-        };
-        stStationNm: {
-          _text: string;
-        };
-        edStationNm: {
-          _text: string;
-        };
-        corpNm: {
-          _text: string;
-        };
-        term: {
-          _text: string;
-        };
-        firstBusTm: {
-          _text: string;
-        };
-        lastBusTm: {
-          _text: string;
-        };
-      };
+      itemList: [TypeStaitionList];
     };
   };
 }
+
 export interface TypeCurrentItem {
   busRouteId: {
     _text: string;
@@ -277,36 +225,7 @@ export interface TypeBusNum {
       };
     };
     msgBody: {
-      itemList: {
-        length: number;
-        routeType: {
-          _text: string;
-        };
-        busRouteId: {
-          _text: string;
-        };
-        busRouteNm: {
-          _text: string;
-        };
-        stStationNm: {
-          _text: string;
-        };
-        edStationNm: {
-          _text: string;
-        };
-        corpNm: {
-          _text: string;
-        };
-        term: {
-          _text: string;
-        };
-        firstBusTm: {
-          _text: string;
-        };
-        lastBusTm: {
-          _text: string;
-        };
-      };
+      itemList: [TypeCurrentItem];
     };
   };
 }

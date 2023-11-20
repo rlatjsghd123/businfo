@@ -12,9 +12,9 @@ function BusLocation() {
     busStationSelector,
   } = useMapAction();
 
-  useEffect(() => {
-    busLocation();
-  }, []);
+  // useEffect(() => {
+  //   busLocation();
+  // }, []);
 
   return (
     <S.LocationInfo>

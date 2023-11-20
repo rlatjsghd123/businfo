@@ -11,12 +11,12 @@ function BusTimeList({ list }: BusTimeListProps) {
     <BusTime>
       <TimeList>배차 : {list.term._text}분</TimeList>
       <TimeList>
-        첫차 : {list.firstBusTm._text.substring(8, 2)}:
-        {list.firstBusTm._text.substring(10, 2)}분
+        첫차 : {list.firstBusTm._text.substring(10, 8)}:
+        {list.firstBusTm._text.substring(12, 10)}분
       </TimeList>
       <TimeList>
-        막차 : {list.lastBusTm._text.substring(8, 2)}:
-        {list.lastBusTm._text.substring(10, 2)}분
+        막차 : {list.lastBusTm._text.substring(10, 8)}:
+        {list.lastBusTm._text.substring(12, 10)}분
       </TimeList>
     </BusTime>
   );

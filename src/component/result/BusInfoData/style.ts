@@ -11,7 +11,7 @@ export const BusInfoBox = styled.div`
 `;
 
 export const StartEnd = styled.p`
-  padding-bottom: 5px;
+  padding: 5px 0;
 `;
 
 export const CorpNm = styled.p`

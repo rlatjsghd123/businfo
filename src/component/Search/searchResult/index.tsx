@@ -7,7 +7,6 @@ function SearchResult() {
   return (
     <S.SearchResultDiv>
       <S.InnerSearchResultDiv>
-        <S.SearchResultTitle>검색결과</S.SearchResultTitle>
         <div>
           <BusSearchResult />
         </div>

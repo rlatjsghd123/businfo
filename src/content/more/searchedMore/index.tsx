@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../store/store';
 import Loding from '../../../component/Loading';
@@ -9,7 +9,6 @@ import BusStation from '../../../component/more/SearchedMore/busStation';
 import * as S from './style';
 
 function SearchedMore() {
-  const [station, setStation] = useState<string>('');
   // 버스의 모든 정류장
   const busStationSelector = useSelector(
     (state: RootState) => state.search.busStation,
@@ -19,16 +18,16 @@ function SearchedMore() {
     (state: RootState) => state.more.ClickValue,
   );
   const loading = useSelector((state: RootState) => state.loading.loading);
-
   const {
     handleCloseClick,
     handleLocationClick,
     busStation,
     selected,
-    onSationNumber,
+    HandleStationClick,
+    station,
   } = useMore();
 
-  useMemo(() => {
+  useEffect(() => {
     busStation();
   }, [locationSelector]);
 
@@ -40,7 +39,7 @@ function SearchedMore() {
       />
       <div>
         <BusDisPatchTime
-          onSationNumber={onSationNumber}
+          HandleStationClick={HandleStationClick}
           locationSelector={locationSelector}
           station={station}
         />

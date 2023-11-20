@@ -20,7 +20,7 @@ function BusStationTitle({
           : UserClickedStationSelector !== null &&
             UserClickedStationSelector.stNm._text}
       </S.StationTitleH1>
-      <S.StationTitleSpan onClick={() => HandleClose}>x</S.StationTitleSpan>
+      <S.StationTitleSpan onClick={HandleClose}>x</S.StationTitleSpan>
     </S.StationTitleDiv>
   );
 }

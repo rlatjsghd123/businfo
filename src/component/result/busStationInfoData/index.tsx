@@ -1,5 +1,6 @@
 import React from 'react';
 import { TypeStaitionList } from 'type/type';
+import { StationList } from '../stationSearchData/style';
 
 interface BusStationInfoDataProps {
   stationInfo: (stationMoreList: TypeStaitionList) => void;
@@ -11,9 +12,9 @@ function BusStationInfoData({
   stationMoreList,
 }: BusStationInfoDataProps) {
   return (
-    <li onClick={() => stationInfo(stationMoreList)}>
-      {stationMoreList.stNm._text}({stationMoreList.arsId._text})
-    </li>
+    <StationList onClick={() => stationInfo(stationMoreList)}>
+      {stationMoreList?.stNm?._text}({stationMoreList?.arsId?._text})
+    </StationList>
   );
 }
 

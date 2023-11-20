@@ -1,11 +1,12 @@
 import React from 'react';
+import * as S from './style';
 
 function Loding() {
   return (
-    <div className='loading'>
-      <img src={process.env.PUBLIC_URL + 'img/1488.gif'} alt='loading' />
+    <S.Loading>
+      <img src={process.env.PUBLIC_URL + 'img/1488.gif'} alt="loading" />
       <span>Loading</span>
-    </div>
+    </S.Loading>
   );
 }
 

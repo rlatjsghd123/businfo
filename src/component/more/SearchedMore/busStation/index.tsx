@@ -21,8 +21,8 @@ function BusStation({
         ?.filter(
           (list, index: number) =>
             busStationSelector?.ServiceResult?.msgBody?.itemList?.indexOf(
-              list
-            ) === index
+              list,
+            ) === index,
         )
         .map(list => (
           <S.BusStationLi

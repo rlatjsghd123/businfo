@@ -4,26 +4,26 @@ import * as S from './style';
 
 interface BusDisPatchTimeProps {
   locationSelector: TypeClickValue;
-  onSationNumber: () => void;
+  HandleStationClick: (e: any) => void;
   station: string;
 }
 
 function BusDisPatchTime({
   locationSelector,
-  onSationNumber,
+  HandleStationClick,
   station,
 }: BusDisPatchTimeProps) {
   return (
     <S.BusStartEndUl>
       <S.BusStartEndLi
-        onClick={() => onSationNumber}
+        onClick={HandleStationClick}
         station={station === locationSelector.stStationNm._text}
       >
         {locationSelector.stStationNm._text}
       </S.BusStartEndLi>
       <S.BusStartEndLi
-        onClick={() => onSationNumber}
-        station={station === locationSelector.stStationNm._text}
+        onClick={HandleStationClick}
+        station={station === locationSelector.edStationNm._text}
       >
         {locationSelector.edStationNm._text}
       </S.BusStartEndLi>

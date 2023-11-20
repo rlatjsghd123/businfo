@@ -5,9 +5,8 @@ import { AppDispatch, RootState } from '../../store/store';
 
 function useSearchResult() {
   const dispatch = useDispatch<AppDispatch>();
-  const busNumSelector = useSelector((state: RootState) => state.search.busNum);
 
-  const moreList = busNumSelector.ServiceResult.msgBody.itemList;
+  const busNumSelector = useSelector((state: RootState) => state.search.busNum);
   const moreSelector = useSelector((state: RootState) => state.more.more);
 
   const busStationLocation = useCallback((list: TypeCurrentItem) => {
@@ -39,7 +38,6 @@ function useSearchResult() {
     moreSelector,
     busNumSelector,
     busStationLocationFalse,
-    moreList,
   };
 }
 

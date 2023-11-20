@@ -8,7 +8,6 @@ export const StationLocation = styled.div`
   width: 450px;
   background-color: #fff;
   border: 1px solid #d2d2d2;
-  font-size: 12px;
 `;
 
 export const InnerStationLocation = styled.div`
@@ -22,6 +21,6 @@ export const StationLocationInfo = styled.div`
   overflow-y: scroll;
 `;
 
-export const ArriveInfo = styled.div`
+export const ArriveInfo = styled.form`
   width: 100%;
 `;

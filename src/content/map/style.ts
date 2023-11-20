@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const LocationInfo = styled.div`
   width: 80%;
-  height: calc(100% - 50px);
+  height: calc(100vh - 50px);
   float: right;
 `;
 

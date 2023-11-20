@@ -21,45 +21,31 @@ const initialState: defaultType = {
         },
       },
       msgBody: {
-        itemList: {
-          length: 0,
-          tmY: {
-            _text: '',
+        itemList: [
+          {
+            tmY: {
+              _text: '',
+            },
+            stId: {
+              _text: '',
+            },
+            tmX: {
+              _text: '',
+            },
+            stNm: {
+              _text: '',
+            },
+            arsId: {
+              _text: '',
+            },
+            posX: {
+              _text: '',
+            },
+            posY: {
+              _text: '',
+            },
           },
-          stId: {
-            _text: '',
-          },
-          tmX: {
-            _text: '',
-          },
-          stNm: {
-            _text: '',
-          },
-          arsId: {
-            _text: '',
-          },
-          busRouteNm: {
-            _text: '',
-          },
-          stStationNm: {
-            _text: '',
-          },
-          edStationNm: {
-            _text: '',
-          },
-          corpNm: {
-            _text: '',
-          },
-          term: {
-            _text: '',
-          },
-          firstBusTm: {
-            _text: '',
-          },
-          lastBusTm: {
-            _text: '',
-          },
-        },
+        ],
       },
     },
   },
@@ -71,36 +57,37 @@ const initialState: defaultType = {
         },
       },
       msgBody: {
-        itemList: {
-          length: 0,
-          routeType: {
-            _text: '',
+        itemList: [
+          {
+            routeType: {
+              _text: '',
+            },
+            busRouteId: {
+              _text: '',
+            },
+            busRouteNm: {
+              _text: '',
+            },
+            stStationNm: {
+              _text: '',
+            },
+            edStationNm: {
+              _text: '',
+            },
+            corpNm: {
+              _text: '',
+            },
+            term: {
+              _text: '',
+            },
+            firstBusTm: {
+              _text: '',
+            },
+            lastBusTm: {
+              _text: '',
+            },
           },
-          busRouteId: {
-            _text: '',
-          },
-          busRouteNm: {
-            _text: '',
-          },
-          stStationNm: {
-            _text: '',
-          },
-          edStationNm: {
-            _text: '',
-          },
-          corpNm: {
-            _text: '',
-          },
-          term: {
-            _text: '',
-          },
-          firstBusTm: {
-            _text: '',
-          },
-          lastBusTm: {
-            _text: '',
-          },
-        },
+        ],
       },
     },
   },
